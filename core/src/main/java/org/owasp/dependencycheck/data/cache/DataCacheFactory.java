@@ -1,17 +1,19 @@
 /*
- * Copyright 2019 OWASP.
+ * This file is part of dependency-check-core.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * Copyright (c) 2019 Jeremy Long. All Rights Reserved.
  */
 package org.owasp.dependencycheck.data.cache;
 
@@ -31,14 +33,27 @@ import org.owasp.dependencycheck.utils.FileUtils;
 import org.owasp.dependencycheck.utils.Settings;
 
 /**
+ * Factory to instantiate cache repositories.
  *
  * @author Jeremy Long
  */
 public class DataCacheFactory {
 
+    /**
+     * The cache directory.
+     */
     private String CACHE_DIRECTORY = "cache";
+    /**
+     * The cache properties.
+     */
     private String CACHE_PROPERTIES = "dependencycheck-cache.properties";
+    /**
+     * A reference to the settings.
+     */
     private Settings settings;
+    /**
+     * Whether or not JCS has been initialized.
+     */
     private static boolean initialized = false;
 
     public enum CacheType {
@@ -91,7 +106,7 @@ public class DataCacheFactory {
             CacheAccess<String, List<Advisory>> ca = JCS.getInstance(type.toString(), attr);
             DataCache<List<Advisory>> dc = new DataCache<>(ca);
             return dc;
-        } else         if (type == CacheType.CENTRAL) {
+        } else if (type == CacheType.CENTRAL) {
             CacheAccess<String, List<MavenArtifact>> ca = JCS.getInstance(type.toString(), attr);
             DataCache<List<MavenArtifact>> dc = new DataCache<>(ca);
             return dc;
