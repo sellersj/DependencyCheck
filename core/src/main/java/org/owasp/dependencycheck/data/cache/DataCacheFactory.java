@@ -83,9 +83,6 @@ public class DataCacheFactory {
                 properties.load(in);
                 properties.put("jcs.auxiliary.ODC.attributes.DiskPath", cacheDirectory.getCanonicalPath());
                 for (CacheType t : CacheType.values()) {
-                    properties.put("jcs.region." + t.toString(), "ODC");
-                    properties.put("jcs.region." + t.toString() + ".cacheattributes.MaxObjects", "0");
-                    properties.put("jcs.region." + t.toString() + ".cacheattributes.DiskUsagePattern", "UPDATE");
                     File fp = new File(cacheDirectory, t.toString());
                     properties.put("jcs.auxiliary." + t.toString() + ".attributes.DiskPath", fp.getCanonicalPath());
                 }
