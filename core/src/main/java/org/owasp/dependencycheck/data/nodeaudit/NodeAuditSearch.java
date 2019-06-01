@@ -100,8 +100,10 @@ public class NodeAuditSearch {
             useProxy = false;
             LOGGER.debug("Not using proxy");
         }
-        DataCacheFactory factory = new DataCacheFactory(settings);
-        cache = factory.getCache(DataCacheFactory.CacheType.NPM);
+        if (settings.getBoolean(Settings.KEYS.ANALYZER_NODE_AUDIT_USE_CACHE, true)) {
+            DataCacheFactory factory = new DataCacheFactory(settings);
+            cache = factory.getCache(DataCacheFactory.CacheType.NODEAUDIT);
+        }
     }
 
     /**
@@ -115,11 +117,14 @@ public class NodeAuditSearch {
      * @throws IOException if it's unable to connect to Node Audit API
      */
     public List<Advisory> submitPackage(JsonObject packageJson) throws SearchException, IOException {
-        String key = Checksum.getSHA256Checksum(packageJson.toString());
-        List<Advisory> cached = cache.get(key);
-        if (cached != null) {
-            LOGGER.debug("cache hit for node audit: " + key);
-            return cached;
+        String key = null;
+        if (cache != null) {
+            key = Checksum.getSHA256Checksum(packageJson.toString());
+            List<Advisory> cached = cache.get(key);
+            if (cached != null) {
+                LOGGER.debug("cache hit for node audit: " + key);
+                return cached;
+            }
         }
         return submitPackage(packageJson, key, 0);
     }
@@ -164,7 +169,9 @@ public class NodeAuditSearch {
                         final JSONObject jsonResponse = new JSONObject(jsonReader.readObject().toString());
                         final NpmAuditParser parser = new NpmAuditParser();
                         List<Advisory> advisories = parser.parse(jsonResponse);
-                        cache.put(key, advisories);
+                        if (cache != null) {
+                            cache.put(key, advisories);
+                        }
                         return advisories;
                     } catch (Exception ex) {
                         LOGGER.debug("Error connecting to Node Audit API. Error: {}",

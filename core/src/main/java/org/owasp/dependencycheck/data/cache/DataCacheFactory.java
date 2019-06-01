@@ -57,7 +57,7 @@ public class DataCacheFactory {
     private static boolean initialized = false;
 
     public enum CacheType {
-        NPM,
+        NODEAUDIT,
         CENTRAL
     }
 
@@ -99,7 +99,7 @@ public class DataCacheFactory {
         ICompositeCacheAttributes attr = new CompositeCacheAttributes();
         attr.setUseDisk(true);
 
-        if (type == CacheType.NPM) {
+        if (type == CacheType.NODEAUDIT) {
             CacheAccess<String, List<Advisory>> ca = JCS.getInstance(type.toString(), attr);
             DataCache<List<Advisory>> dc = new DataCache<>(ca);
             return dc;
