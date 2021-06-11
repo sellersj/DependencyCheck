@@ -794,10 +794,10 @@ Getting Help: <a href="https://github.com/jeremylong/DependencyCheck/issues" tar
                 #set($vsctr=0) ##counter to create unique groups for vulnerable software
                 #foreach($dependency in $dependencies)
                     #set($lnkcnt=$lnkcnt+1)
-                    <h3 class="subsectionheader standardsubsection#if($dependency.getVulnerabilities().size()==0) notvulnerable#end"><a name="l${lnkcnt}_$enc.html($dependency.Sha1sum)"></a>$enc.html($dependency.DisplayFileName)</h3>
+                    <h3 class="subsectionheader standardsubsection#if($dependency.getVulnerabilities().size()==0) notvulnerable#end"><a id="l${lnkcnt}_$enc.html($dependency.Sha1sum)"></a>$enc.html($dependency.DisplayFileName)</h3>
                     <div class="subsectioncontent#if($dependency.getVulnerabilities().size()==0) notvulnerable#end">
                         #if ($dependency.description)
-                            <p><b>Description:</b><pre>$enc.html($dependency.description)</pre></p>
+                            <p><b>Description:</b></p><pre>$enc.html($dependency.description)</pre>
                         #end
                         <p>
                         #if ($dependency.license)
@@ -968,26 +968,27 @@ Getting Help: <a href="https://github.com/jeremylong/DependencyCheck/issues" tar
                             </p>
                             #if ($vuln.getSource().name().equals("NVD") && $vuln.matchedVulnerableSoftware)
                                 #if ($vuln.getVulnerableSoftware().size()<2)
-                                    <p>Vulnerable Software &amp; Versions:<ul>
+                                    <p>Vulnerable Software &amp; Versions:</p>
+                                    <ul>
                                         <li class="vs$vsctr"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vuln.matchedVulnerableSoftware.toCpe22Uri())">$enc.html($vuln.matchedVulnerableSoftware.toString())</a></li>
-                                    </ul></p>
+                                    </ul>
                                 #else
-                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs$vsctr">show all</a>)<ul>
+                                    <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs$vsctr">show all</a>)</p>
+                                    <ul>
                                         <li class="vs$vsctr"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vuln.matchedVulnerableSoftware.toCpe22Uri())">$enc.html($vuln.matchedVulnerableSoftware.toString())</a></li>
                                         <li class="vs$vsctr">...</li>
                                     #foreach($vs in $vuln.getVulnerableSoftware(true))
                                         <li class="vs$vsctr hidden"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vs.toCpe22Uri())">$enc.html($vs.toString())</a></li>
                                     #end
-                                    </ul></p>
+                                    </ul>
                                 #end
                             #elseif ($vuln.getVulnerableSoftware().size()!=0)
-                                <p>Vulnerable Software &amp; Versions ($vuln.getSource().name()):
-                                    <ul>
-                                    #foreach($vs in $vuln.getVulnerableSoftware(true))
-                                        <li class="vs$vsctr">$enc.html($vs.toString())</li>
-                                    #end
-                                    </ul>
-                                </p>
+                                <p>Vulnerable Software &amp; Versions ($vuln.getSource().name()):</p>
+                                <ul>
+                                #foreach($vs in $vuln.getVulnerableSoftware(true))
+                                    <li class="vs$vsctr">$enc.html($vs.toString())</li>
+                                #end
+                                </ul>
                             #end
                         #end
                     </div>
@@ -1009,7 +1010,7 @@ Getting Help: <a href="https://github.com/jeremylong/DependencyCheck/issues" tar
                             <h3 class="subsectionheader standardsubsection">$enc.html($dependency.DisplayFileName)</h3>
                             <div class="subsectioncontent">
                                 #if ($dependency.description)
-                                    <p><b>Description:</b><pre>$enc.html($dependency.description)</pre></p>
+                                    <p><b>Description:</b></p><pre>$enc.html($dependency.description)</pre>
                                 #end
                                 <p>
                                 #if ($dependency.license)
@@ -1136,17 +1137,19 @@ Getting Help: <a href="https://github.com/jeremylong/DependencyCheck/issues" tar
                                     </p>
                                      #if ($vuln.getSource().name().equals("NVD") && $vuln.matchedVulnerableSoftware)
                                         #if ($vuln.getVulnerableSoftware().size()<2)
-                                            <p>Vulnerable Software &amp; Versions:<ul>
+                                            <p>Vulnerable Software &amp; Versions:</p>
+                                            <ul>
                                                 <li class="vs$vsctr"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vuln.matchedVulnerableSoftware.toCpe22Uri())">$enc.html($vuln.matchedVulnerableSoftware.toString())</a></li>
-                                            </ul></p>
+                                            </ul>
                                         #else
-                                            <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs$vsctr">show all</a>)<ul>
+                                            <p>Vulnerable Software &amp; Versions:&nbsp;(<a href="#" class="versionToggle" data-toggle=".vs$vsctr">show all</a>)</p>
+                                            <ul>
                                                 <li class="vs$vsctr"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vuln.matchedVulnerableSoftware.toCpe22Uri())">$enc.html($vuln.matchedVulnerableSoftware.toString())</a></li>
                                                 <li class="vs$vsctr">...</li>
                                             #foreach($vs in $vuln.getVulnerableSoftware(true))
                                                 <li class="vs$vsctr hidden"><a target="_blank" href="https://web.nvd.nist.gov/view/vuln/search-results?adv_search=true&cves=on&cpe_version=$enc.url($vs.toCpe22Uri())">$enc.html($vs.toString())</a></li>
                                             #end
-                                            </ul></p>
+                                            </ul>
                                         #end
                                     #else
                                         <p>Vulnerable Software &amp; Versions ($vuln.getSource().name()):
