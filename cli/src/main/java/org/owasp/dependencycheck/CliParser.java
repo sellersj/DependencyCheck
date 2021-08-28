@@ -407,6 +407,7 @@ public final class CliParser {
                 .addOption(newOption(ARGUMENT.DISABLE_MIX_AUDIT, "Disable the Elixir mix_audit Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_RUBYGEMS, "Disable the Ruby Gemspec Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_BUNDLE_AUDIT, "Disable the Ruby Bundler-Audit Analyzer."))
+                .addOption(newOption(ARGUMENT.DISABLE_FILENAME, "Disable the File Name Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_AUTOCONF, "Disable the Autoconf Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_PIP, "Disable the pip Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_PIPFILE, "Disable the Pipfile Analyzer."))
@@ -426,6 +427,7 @@ public final class CliParser {
                 .addOption(newOption(ARGUMENT.DISABLE_SWIFT_RESOLVED, "Disable the swift package resolved Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_GO_DEP, "Disable the Golang Package Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_NODE_JS, "Disable the Node.js Package Analyzer."))
+                .addOption(newOption(ARGUMENT.NODE_PACKAGE_SKIP_DEV_DEPENDENCIES, "Configures the Node Package Analyzer to skip devDependencies"))
                 .addOption(newOption(ARGUMENT.DISABLE_NODE_AUDIT, "Disable the Node Audit Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_YARN_AUDIT, "Disable the Yarn Audit Analyzer."))
                 .addOption(newOption(ARGUMENT.DISABLE_NODE_AUDIT_CACHE, "Disallow the Node Audit Analyzer from caching results"))
@@ -1174,6 +1176,10 @@ public final class CliParser {
          */
         public static final String DISABLE_BUNDLE_AUDIT = "disableBundleAudit";
         /**
+         * Disables the File Name Analyzer.
+         */
+        public static final String DISABLE_FILENAME = "disableFileName";
+        /**
          * Disables the Nuspec Analyzer.
          */
         public static final String DISABLE_NUSPEC = "disableNuspec";
@@ -1218,6 +1224,10 @@ public final class CliParser {
          * Disables the Node.js Package Analyzer.
          */
         public static final String DISABLE_NODE_JS = "disableNodeJS";
+        /**
+         * Skips dev dependencies in Node Package Analyzer
+         */
+        public static final String NODE_PACKAGE_SKIP_DEV_DEPENDENCIES = "nodePackageSkipDevDependencies";
         /**
          * Disables the Node Audit Analyzer.
          */

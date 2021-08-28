@@ -483,6 +483,8 @@ public class App {
                 !cli.hasDisableOption(CliParser.ARGUMENT.DISABLE_ASSEMBLY, Settings.KEYS.ANALYZER_ASSEMBLY_ENABLED));
         settings.setBoolean(Settings.KEYS.ANALYZER_BUNDLE_AUDIT_ENABLED,
                 !cli.hasDisableOption(CliParser.ARGUMENT.DISABLE_BUNDLE_AUDIT, Settings.KEYS.ANALYZER_BUNDLE_AUDIT_ENABLED));
+        settings.setBoolean(Settings.KEYS.ANALYZER_FILE_NAME_ENABLED,
+                !cli.hasDisableOption(CliParser.ARGUMENT.DISABLE_FILENAME, Settings.KEYS.ANALYZER_FILE_NAME_ENABLED));
         settings.setBoolean(Settings.KEYS.ANALYZER_MIX_AUDIT_ENABLED,
                 !cli.hasDisableOption(CliParser.ARGUMENT.DISABLE_MIX_AUDIT, Settings.KEYS.ANALYZER_MIX_AUDIT_ENABLED));
         settings.setBoolean(Settings.KEYS.ANALYZER_OPENSSL_ENABLED,
@@ -523,6 +525,8 @@ public class App {
         settings.setBoolean(Settings.KEYS.ANALYZER_OSSINDEX_USE_CACHE,
                 !cli.hasDisableOption(CliParser.ARGUMENT.DISABLE_OSSINDEX_CACHE, Settings.KEYS.ANALYZER_OSSINDEX_USE_CACHE));
 
+        settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_PACKAGE_SKIPDEV,
+                cli.hasOption(CliParser.ARGUMENT.NODE_PACKAGE_SKIP_DEV_DEPENDENCIES));
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_AUDIT_SKIPDEV,
                 cli.hasOption(CliParser.ARGUMENT.DISABLE_NODE_AUDIT_SKIPDEV));
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NEXUS_ENABLED,

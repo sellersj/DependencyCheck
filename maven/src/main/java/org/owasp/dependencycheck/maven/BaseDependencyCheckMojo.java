@@ -183,7 +183,7 @@ public abstract class BaseDependencyCheckMojo extends AbstractMojo implements Ma
      * The output directory. This generally maps to "target".
      */
     @SuppressWarnings("CanBeFinal")
-    @Parameter(defaultValue = "${project.build.directory}", required = true)
+    @Parameter(defaultValue = "${project.build.directory}", required = true, property = "odc.outputDirectory")
     private File outputDirectory;
     /**
      * This is a reference to the &gt;reporting&lt; sections
@@ -467,6 +467,12 @@ public abstract class BaseDependencyCheckMojo extends AbstractMojo implements Ma
     @SuppressWarnings("CanBeFinal")
     @Parameter(property = "nodeAuditSkipDevDependencies")
     private Boolean nodeAuditSkipDevDependencies;
+    /**
+     * Sets whether or not the Node Audit Analyzer should skip devDependencies.
+     */
+    @SuppressWarnings("CanBeFinal")
+    @Parameter(property = "nodePackageSkipDevDependencies")
+    private Boolean nodePackageSkipDevDependencies;
     /**
      * Sets whether or not the Retirejs Analyzer should be used.
      */
@@ -1970,6 +1976,7 @@ public abstract class BaseDependencyCheckMojo extends AbstractMojo implements Ma
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_PACKAGE_ENABLED, nodeAnalyzerEnabled);
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_AUDIT_ENABLED, nodeAuditAnalyzerEnabled);
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_AUDIT_USE_CACHE, nodeAuditAnalyzerUseCache);
+        settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_PACKAGE_SKIPDEV, nodePackageSkipDevDependencies);
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_NODE_AUDIT_SKIPDEV, nodeAuditSkipDevDependencies);
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_YARN_AUDIT_ENABLED, yarnAuditAnalyzerEnabled);
         settings.setBooleanIfNotNull(Settings.KEYS.ANALYZER_RETIREJS_ENABLED, retireJsAnalyzerEnabled);
