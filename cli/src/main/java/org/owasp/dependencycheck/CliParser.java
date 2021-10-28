@@ -114,7 +114,7 @@ public final class CliParser {
      */
     private void validateArgs() throws FileNotFoundException, ParseException {
         if (isUpdateOnly() || isRunScan()) {
-            final String value = line.getOptionValue(ARGUMENT.CVE_VALID_FOR_HOURS);
+            String value = line.getOptionValue(ARGUMENT.CVE_VALID_FOR_HOURS);
             if (value != null) {
                 try {
                     final int i = Integer.parseInt(value);
@@ -125,6 +125,18 @@ public final class CliParser {
                     throw new ParseException("Invalid Setting: cveValidForHours must be a number greater than or equal to 0.");
                 }
             }
+            value = line.getOptionValue(ARGUMENT.CVE_START_YEAR);
+            if (value != null) {
+                try {
+                    final int i = Integer.parseInt(value);
+                    if (i < 2002) {
+                        throw new ParseException("Invalid Setting: cveStartYear must be a number greater than or equal to 2002.");
+                    }
+                } catch (NumberFormatException ex) {
+                    throw new ParseException("Invalid Setting: cveStartYear must be a number greater than or equal to 2002.");
+                }
+            }
+
         }
         if (isRunScan()) {
             validatePathExists(getScanFiles(), ARGUMENT.SCAN);
@@ -376,6 +388,8 @@ public final class CliParser {
                         "The path to the `yarn` executable."))
                 .addOption(newOptionWithArg(ARGUMENT.CVE_VALID_FOR_HOURS, "hours",
                         "The number of hours to wait before checking for new updates from the NVD."))
+                .addOption(newOptionWithArg(ARGUMENT.CVE_START_YEAR, "year",
+                        "The first year to retrieve NVD CVE data for; default is 2002."))
                 .addOption(newOptionWithArg(ARGUMENT.RETIREJS_FILTERS, "pattern",
                         "Specify Retire JS content filter used to exclude files from analysis based on their content; "
                         + "most commonly used to exclude based on your applications own copyright line. This "
@@ -548,6 +562,15 @@ public final class CliParser {
      */
     public boolean isYarnAuditDisabled() {
         return hasDisableOption(ARGUMENT.DISABLE_YARN_AUDIT, Settings.KEYS.ANALYZER_YARN_AUDIT_ENABLED);
+    }
+    /**
+     * Returns true if the disablePnpmAudit command line argument was specified.
+     *
+     * @return true if the disablePnpmAudit command line argument was specified;
+     * otherwise false
+     */
+    public boolean isPnpmAuditDisabled() {
+        return hasDisableOption(ARGUMENT.DISABLE_PNPM_AUDIT, Settings.KEYS.ANALYZER_PNPM_AUDIT_ENABLED);
     }
 
     /**
@@ -1086,6 +1109,11 @@ public final class CliParser {
          */
         public static final String CVE_VALID_FOR_HOURS = "cveValidForHours";
         /**
+         * The CLI argument name for setting the first year to retrieve NVD
+         * data.
+         */
+        public static final String CVE_START_YEAR = "cveStartYear";
+        /**
          * The username for basic auth to the CVE data.
          */
         public static final String CVE_USER = "cveUser";
@@ -1141,6 +1169,10 @@ public final class CliParser {
          * The CLI argument name for setting the path to `yarn`.
          */
         public static final String PATH_TO_YARN = "yarn";
+        /**
+         * The CLI argument name for setting the path to `pnpm`.
+         */
+        public static final String PATH_TO_PNPM = "pnpm";
         /**
          * Disables the Ruby Gemspec Analyzer.
          */
@@ -1231,7 +1263,7 @@ public final class CliParser {
          */
         public static final String DISABLE_NODE_JS = "disableNodeJS";
         /**
-         * Skips dev dependencies in Node Package Analyzer
+         * Skips dev dependencies in Node Package Analyzer.
          */
         public static final String NODE_PACKAGE_SKIP_DEV_DEPENDENCIES = "nodePackageSkipDevDependencies";
         /**
@@ -1242,6 +1274,10 @@ public final class CliParser {
          * Disables the Yarn Audit Analyzer.
          */
         public static final String DISABLE_YARN_AUDIT = "disableYarnAudit";
+        /**
+         * Disables the Pnpm Audit Analyzer.
+         */
+        public static final String DISABLE_PNPM_AUDIT = "disablePnpmAudit";
         /**
          * Disables the Node Audit Analyzer's ability to cache results locally.
          */

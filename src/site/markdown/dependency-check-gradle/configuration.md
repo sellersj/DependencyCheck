@@ -71,6 +71,7 @@ Config Group | Property          | Description                                  
 cve          | urlModified       | URL for the modified CVE JSON data feed. When mirroring the NVD you must mirror the *.json.gz and the *.meta files.  | https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-modified.json.gz |
 cve          | urlBase           | Base URL for each year's CVE JSON data feed, the %d will be replaced with the year.                                  | https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-%d.json.gz       |
 cve          | waitTime          | The time in milliseconds to wait between downloads from the NVD.                                                     | 4000                                                                |
+cve          | startYear         | The first year of NVD CVE data to download from the NVD.                                                             | 2002                                                                |
 data         | directory         | Sets the data directory to hold SQL CVEs contents. This should generally not be changed.                             | &nbsp;                                                              |
 data         | driver            | The name of the database driver. Example: org.h2.Driver.                                                             | &nbsp;                                                              |
 data         | driverPath        | The path to the database driver JAR file; only used if the driver is not in the class path.                          | &nbsp;                                                              |
@@ -144,6 +145,8 @@ nodeAudit    | useCache              | Sets whether the Node Audit Analyzer shou
 nodeAudit    | skipDevDependencies   | Sets whether the Node Audit Analyzer should skip devDependencies.                                                 | false
 nodeAudit    | yarnEnabled           | Sets whether the Yarn Audit Analyzer should be used. This analyzer requires yarn and an internet connection.      | true
 nodeAudit    | yarnPath              | Sets the path to the `yarn` executable.                                                                           | &nbsp;
+nodeAudit    | pnpmEnabled           | Sets whether the Pnpm Audit Analyzer should be used. This analyzer requires pnpm and an internet connection.      | true
+nodeAudit    | pnpmPath              | The path to `pnpm`.                                                                                               | &nbsp;
 retirejs     | enabled               | Sets whether the RetireJS Analyzer should be used.                                                                | true
 retirejs     | forceupdate           | Sets whether the RetireJS Analyzer should update regardless of the `autoupdate` setting.                          | false
 retirejs     | retireJsUrl           | The URL to the Retire JS repository.                                                                              | https://raw.githubusercontent.com/Retirejs/retire.js/master/repository/jsrepository.json

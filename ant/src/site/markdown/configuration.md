@@ -108,7 +108,9 @@ nodeAuditAnalyzerUseCache           | Sets whether the Node Audit Analyzer will 
 nodeAuditSkipDevDependencies        | Sets whether the Node Audit Analyzer will skip devDependencies.                                            | false
 nodePackageSkipDevDependencies      | Sets whether the Node Package Analyzer will skip devDependencies.                                          | false
 yarnAuditAnalyzerEnabled            | Sets whether the Yarn Audit Analyzer should be used. This analyzer requires yarn and an internet connection. Use `nodeAuditSkipDevDependencies` to skip dev dependencies. | true
+pnpmAuditAnalyzerEnabled            | Sets whether the Pnpm Audit Analyzer should be used. This analyzer requires pnpm and an internet connection. Use `nodeAuditSkipDevDependencies` to skip dev dependencies. | true
 pathToYarn                          | The path to `yarn`.                                                                                        | &nbsp;
+pathToPnpm                          | The path to `pnpm`.                                                                                        | &nbsp;
 retireJsAnalyzerEnabled             | Sets whether the RetireJS Analyzer should be used.                                                         | true
 retirejsForceupdate                 | Sets whether the RetireJS Analyzer should update regardless of the `autoupdate` setting.                   | false
 retirejsFilterNonVulnerable         | Configures the RetireJS Analyzer to remove non-vulnerable JS dependencies from the report.                 | false
@@ -137,13 +139,13 @@ may be the cvedUrl properties, which can be used to host a mirror of the NVD wit
 
 Property             | Description                                                              | Default Value
 ---------------------|--------------------------------------------------------------------------|------------------
-cveUrl12Modified     | URL for the modified CVE 1.2.                                            | http://nvd.nist.gov/download/nvdcve-modified.xml
-cveUrl20Modified     | URL for the modified CVE 2.0.                                            | http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-modified.xml
-cveUrl12Base         | Base URL for each year's CVE 1.2, the %d will be replaced with the year. | http://nvd.nist.gov/download/nvdcve-%d.xml
-cveUrl20Base         | Base URL for each year's CVE 2.0, the %d will be replaced with the year. | http://static.nvd.nist.gov/feeds/xml/cve/nvdcve-2.0-%d.xml
-dataDirectory        | Data directory that is used to store the local copy of the NVD. This should generally not be changed. | data
-databaseDriverName   | The name of the database driver. Example: org.h2.Driver.                 | &nbsp;
-databaseDriverPath   | The path to the database driver JAR file; only used if the driver is not in the class path. | &nbsp;
+cveUrlModified       | URL for the modified CVE JSON data feed. When mirroring the NVD you must mirror the *.json.gz and the *.meta files. Optional if your custom cveUrlBase is just a domain name change.  | https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-modified.json.gz
+cveUrlBase           | Base URL for each year's CVE JSON data feed, the %d will be replaced with the year.                          | https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-%d.json.gz
+cveWaitTime          | The time in milliseconds to wait between downloads from the NVD.                                             | 4000
+cveStartYear         | The first year of NVD CVE data to download from the NVD.                                                     | 2002
+dataDirectory        | Data directory that is used to store the local copy of the NVD. This should generally not be changed.        | data
+databaseDriverName   | The name of the database driver. Example: org.h2.Driver.                                                     | &nbsp;
+databaseDriverPath   | The path to the database driver JAR file; only used if the driver is not in the class path.                  | &nbsp;
 connectionString     | The connection string used to connect to the database. See using a [database server](../data/database.html). | &nbsp;
-databaseUser         | The username used when connecting to the database.                       | &nbsp;
-databasePassword     | The password used when connecting to the database.                       | &nbsp;
+databaseUser         | The username used when connecting to the database.                                                           | &nbsp;
+databasePassword     | The password used when connecting to the database.                                                           | &nbsp;

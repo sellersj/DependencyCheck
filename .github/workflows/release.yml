@@ -25,7 +25,7 @@ jobs:
         run: |
           cat <(echo -e "${{ secrets.OSSRH_GPG_SECRET_KEY }}") | gpg --batch --import
           gpg --list-secret-keys --keyid-format LONG
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.3.5
       - name: Check Maven Cache
         id: maven-cache
         uses: actions/cache@v2.1.6
@@ -53,6 +53,9 @@ jobs:
           server-id: ossrh
           server-username: ${{ secrets.OSSRH_USERNAME }}
           server-password: ${{ secrets.OSSRH_TOKEN }}
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.0.2
       - name: Configure Git user
         run: |
           git config user.email "actions@github.com"
@@ -152,7 +155,7 @@ jobs:
           path: ~/OWASP-Dependency-Check
           key: docker-repo
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: release
       - name: Download release build
@@ -176,7 +179,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: release
       - name: Get version
@@ -198,9 +201,8 @@ jobs:
           release_name: Version ${{ env.VERSION }}
           body: |
             Changes in this Release
-            - Reduced chance of rate limiting when download files from NVD (see [#2670](https://github.com/jeremylong/DependencyCheck/pull/3670)).
-            - Fixed bug causing some transitive dependencies being skipped in the odc-maven-plugin (see [#3627](https://github.com/jeremylong/DependencyCheck/pull/3627)).
-            - See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/33?closed=1).
+            - Added download attempts with increasing wait time for `CVE meta` files from the NVD to prevent rate limiting issues (see [#3725](https://github.com/jeremylong/DependencyCheck/pull/3725)).
+            - See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/35?closed=1).
           draft: false
           prerelease: false
       - name: Upload CLI
@@ -250,7 +252,7 @@ jobs:
     needs: build
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: release
       - name: Download Site
@@ -273,7 +275,7 @@ jobs:
     needs: [docker, publish, release]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           ref: main
       - name: Configure Git user

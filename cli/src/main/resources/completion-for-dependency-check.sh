@@ -21,7 +21,8 @@ _odc_completions()
             --connectionString
             --cveUrlBase
             --cveUrlModified
-            --cveValidForHours
+            --cveValidForHours <hours>
+            --cveStartYear <year>
             --cveUser <user>
             --cvePassword <password>
             --cveDownloadWait <milliseconds>
@@ -46,6 +47,7 @@ _odc_completions()
             --disableMixAudit
             --disableMSBuild
             --disableYarnAudit
+            --disablePnpmAudit
             --disableNodeAudit
             --disableNodeAuditCache
             --disableNodeJS
@@ -93,6 +95,7 @@ _odc_completions()
             --proxyport <port>
             --proxyserver <server>
             --proxyuser <user>
+            --pnpm
             --purge
             --retirejsFilter <pattern>
             --retirejsFilterNonVulnerable
