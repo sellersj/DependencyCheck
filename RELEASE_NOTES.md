@@ -1,5 +1,27 @@
 # Release Notes
 
+## [Version 6.5.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v6.5.1) (2021-12-17)
+
+### Changes
+
+ - Updated the dependency-check-maven plugin to correctly support SNAPSHOT version when a classifier is specified (#3787).
+ - Improved the analysis of Swift package manager (package.resolved - see #3813).
+ - General code maintenance and false positive reductions.
+ - See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/37?closed=1).
+
+## [Version 6.5.0](https://github.com/jeremylong/DependencyCheck/releases/tag/v6.5.0) (2021-11-08)
+
+### Changes
+
+ - Updated build configuration to create [reproducible builds](https://reproducible-builds.org/).
+ - Updated automated release process to work with branch protection.
+ - Resolved several false positives in the Java ecosystem.
+ - Enabled the Swift Resolved analyzer per #3735
+ - Improved iOS support per #3168 and #3765
+ - Added the a new pnpm Analyzer
+ - Fixed issue with some npm and yarn analysis failing due to large audit output
+ - See the full listing of [changes](https://github.com/jeremylong/DependencyCheck/milestone/36?closed=1).
+
 ## [Version 6.4.1](https://github.com/jeremylong/DependencyCheck/releases/tag/v6.4.1) (2021-10-11)
 
 ### Changes
